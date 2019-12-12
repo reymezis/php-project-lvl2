@@ -1,0 +1,23 @@
+{
+    "name": "nikolay/php-project2",
+    "license": "MIT",
+    "bin": [
+        "bin/gendiff"
+    ],
+    "description": "diff-generator-project",
+    "type": "project",
+    "authors": [
+        {
+            "name": "Reymezis",
+            "email": "qq1s@bk.ru"
+        }
+    ],
+    "autoload": {
+        "files": [
+            "src/gendiff.php"
+        ]
+    },
+    "require": {
+        "docopt/docopt": "*"
+    }
+}
