@@ -18,6 +18,7 @@
         ]
     },
     "require": {
-        "docopt/docopt": "*"
+        "docopt/docopt": "*",
+        "funct/funct": "^1.5"
     }
 }
