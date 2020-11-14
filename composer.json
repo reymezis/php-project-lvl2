@@ -19,6 +19,11 @@
     },
     "require": {
         "docopt/docopt": "*",
-        "funct/funct": "^1.5"
+        "funct/funct": "^1.5",
+        "squizlabs/php_codesniffer": "*",
+        "phpunit/phpunit": "*"
+    },
+    "scripts": {
+        "phpcs": "phpcs"
     }
 }

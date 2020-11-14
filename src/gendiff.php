@@ -25,7 +25,7 @@ function run()
     ];
     $args = \Docopt::handle(DOC, $params);
 
-    genDiff($args->args['<firstFile>'], $args->args['<secondFile>']);
+    echo genDiff($args->args['<firstFile>'], $args->args['<secondFile>']);
 }
 
 function readFile($path)
@@ -79,5 +79,5 @@ function genDiff($pathToFile1, $pathToFile2)
         return $acc;
     }, "") . "}\n";
 
-    echo $prettyResult;
+    return $prettyResult;
 }
