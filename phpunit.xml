@@ -9,9 +9,10 @@
          stopOnFailure="true"
          bootstrap="vendor/autoload.php"
 >
-    <coverage processUncoveredFiles="true">
-        <include>
-            <directory suffix=".php">./app</directory>
-        </include>
-    </coverage>
+    <filter>
+        <whitelist addUncoveredFilesFromWhitelist="true">
+            <!-- the files included in the clover report -->
+            <directory suffix=".php">./src</directory>
+        </whitelist>
+    </filter>
 </phpunit>
