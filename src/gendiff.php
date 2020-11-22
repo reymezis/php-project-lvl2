@@ -2,6 +2,8 @@
 
 namespace diff\gendiff;
 
+use function diff\parsers\readFile;
+
 const DOC = <<<DOC
 Generate diff
 
@@ -28,12 +30,6 @@ function run()
     echo genDiff($args->args['<firstFile>'], $args->args['<secondFile>']);
 }
 
-function readFile($path)
-{
-    $absolutePath = realpath($path);
-    return $data = file_get_contents($absolutePath);
-}
-
 function getReadableValue($value)
 {
     return trim(var_export($value, true), "'");
@@ -41,8 +37,8 @@ function getReadableValue($value)
 
 function genDiff($pathToFile1, $pathToFile2)
 {
-    $data1 = (array) json_decode(readFile($pathToFile1));
-    $data2 = (array) json_decode(readFile($pathToFile2));
+    $data1 = (array) readFile($pathToFile1);
+    $data2 = (array) readFile($pathToFile2);
     $keys = array_unique(array_merge(array_keys($data1), array_keys($data2)));
 
     $result = array_reduce($keys, function ($acc, $key) use ($data1, $data2) {

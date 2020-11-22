@@ -24,5 +24,9 @@ EOT;
         $path1 = __DIR__ . "/fixtures/file1.json";
         $path2 = __DIR__ . "/fixtures/file2.json";
         $this->assertSame(genDiff($path1, $path2), $result);
+
+        $yamlFilePath1 =  __DIR__ . "/fixtures/filepath1.yml";
+        $yamlFilePath2 =  __DIR__ . "/fixtures/filepath2.yml";
+        $this->assertSame(genDiff($yamlFilePath1, $yamlFilePath2), $result);
     }
 }
