@@ -2,6 +2,10 @@
 
 namespace diff\gendiff;
 
+use Exception;
+
+use function diff\astBuilder\buildAST;
+use function diff\formatters\stylish\formatter;
 use function diff\parsers\readFile;
 
 const DOC = <<<DOC
@@ -15,65 +19,38 @@ Usage:
 Options:
   -h --help                     Show this screen
   -v --version                  Show version
-  --format <fmt>                Report format [default: pretty]
+  --format <fmt>                Report format [default: stylish]
 DOC;
 
 function run()
 {
     $params = [
         'help'         => true,
-        'version'      => "Ver. 0.2",
+        'version'      => "Ver. 0.6",
         'optionsFirst' => true,
     ];
     $args = \Docopt::handle(DOC, $params);
 
-    echo genDiff($args->args['<firstFile>'], $args->args['<secondFile>']);
+    echo genDiff($args->args['<firstFile>'], $args->args['<secondFile>'], $args['--format']);
 }
 
 function getReadableValue($value)
 {
+    if (gettype($value) == 'NULL') {
+            return "null";
+    }
     return trim(var_export($value, true), "'");
 }
 
-function genDiff($pathToFile1, $pathToFile2)
+function genDiff($pathToFile1, $pathToFile2, $format = "stylish")
 {
-    $data1 = (array) readFile($pathToFile1);
-    $data2 = (array) readFile($pathToFile2);
-    $keys = array_unique(array_merge(array_keys($data1), array_keys($data2)));
-
-    $result = array_reduce($keys, function ($acc, $key) use ($data1, $data2) {
-        if (!array_key_exists($key, $data1)) {
-            $acc['added' . "-" . $key] = $key . ": " . getReadableValue($data2[$key]);
-        } elseif (!array_key_exists($key, $data2)) {
-            $acc['deleted' . "-" . $key] = $key . ": " . getReadableValue($data1[$key]);
-        } elseif ($data1[$key] !== $data2[$key]) {
-            $acc['original' . "-" . $key] = $key . ": " . getReadableValue($data1[$key]);
-            $acc['changed' . "-" . $key] = $key . ": " . getReadableValue($data2[$key]);
-        } else {
-            $acc['unchanged' . "-" . $key] =  $key . ": " . getReadableValue($data1[$key]);
-        }
-        return $acc;
-    }, []);
-
-    $prettyResult = "{\n" . array_reduce(array_keys($result), function ($acc, $key) use ($result) {
-        if (preg_match('/^unchanged-/', $key)) {
-            $acc .= "    " . $result[$key] . "\n";
-        }
-        if (preg_match('/^original-/', $key)) {
-            $acc .= "  " . "- " . $result[$key] . "\n";
-        }
-        if (preg_match('/^changed-/', $key)) {
-            $acc .= "  " .  "+ " . $result[$key] . "\n";
-        }
-        if (preg_match('/^deleted-/', $key)) {
-            $acc .= "  " .  "- " . $result[$key] . "\n";
-        }
-        if (preg_match('/^added-/', $key)) {
-            $acc .= "  " .  "+ " . $result[$key] . "\n";
-        }
-
-        return $acc;
-    }, "") . "}\n";
-
-    return $prettyResult;
+    $data1 = readFile($pathToFile1);
+    $data2 = readFile($pathToFile2);
+    $ast = buildAST($data1, $data2);
+    switch ($format) {
+        case 'stylish':
+            return formatter($ast);
+        default:
+            throw new Exception("Unknown output format {$format}!");
+    }
 }

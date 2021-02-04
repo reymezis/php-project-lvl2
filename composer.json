@@ -1,5 +1,5 @@
 {
-    "name": "nikolay/php-project2",
+    "name": "hexlet/code",
     "license": "MIT",
     "bin": [
         "bin/gendiff"
@@ -15,7 +15,9 @@
     "autoload": {
         "files": [
             "src/gendiff.php",
-            "src/parsers.php"
+            "src/parsers.php",
+            "src/astBuilder.php",
+            "src/formatters/stylish.php"
         ]
     },
     "require": {
