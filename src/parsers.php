@@ -11,7 +11,7 @@ function readFile($path)
     $data = file_get_contents($absolutePath);
     $parsersList = [
         "json" => json_decode($data),
-        "yml"  => Yaml::parse($data, Yaml::PARSE_OBJECT_FOR_MAP),
+        "yaml"  => Yaml::parse($data, Yaml::PARSE_OBJECT_FOR_MAP),
     ];
     return $parsersList[$fileFormat];
 }
