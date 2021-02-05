@@ -19,7 +19,8 @@
             "src/astBuilder.php",
             "src/Formatters.php",
             "src/formatters/stylish.php",
-            "src/formatters/plain.php"
+            "src/formatters/plain.php",
+            "src/formatters/json.php"
         ]
     },
     "require": {

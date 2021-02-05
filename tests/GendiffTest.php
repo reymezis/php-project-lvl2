@@ -22,5 +22,9 @@ class GendiffTest extends TestCase
         $plainResult = file_get_contents(__DIR__ . "/fixtures/plain");
         $this->assertSame(genDiff($yamlFile1, $yamlFile2, "plain"), $plainResult);
         $this->assertSame(genDiff($jsonFile1, $jsonFile2, "plain"), $plainResult);
+
+        $jsonResult = file_get_contents(__DIR__ . "/fixtures/json");
+        $this->assertSame(genDiff($jsonFile1, $jsonFile2, "json"), $jsonResult);
+        $this->assertSame(genDiff($yamlFile1, $yamlFile2, "json"), $jsonResult);
     }
 }
