@@ -2,10 +2,8 @@
 
 namespace diff\gendiff;
 
-use Exception;
-
 use function diff\astBuilder\buildAST;
-use function diff\formatters\stylish\formatter;
+use function diff\Formatters\render;
 use function diff\parsers\readFile;
 
 const DOC = <<<DOC
@@ -47,10 +45,5 @@ function genDiff($pathToFile1, $pathToFile2, $format = "stylish")
     $data1 = readFile($pathToFile1);
     $data2 = readFile($pathToFile2);
     $ast = buildAST($data1, $data2);
-    switch ($format) {
-        case 'stylish':
-            return formatter($ast);
-        default:
-            throw new Exception("Unknown output format {$format}!");
-    }
+    return render($ast, $format);
 }

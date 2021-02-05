@@ -17,7 +17,9 @@
             "src/gendiff.php",
             "src/parsers.php",
             "src/astBuilder.php",
-            "src/formatters/stylish.php"
+            "src/Formatters.php",
+            "src/formatters/stylish.php",
+            "src/formatters/plain.php"
         ]
     },
     "require": {
