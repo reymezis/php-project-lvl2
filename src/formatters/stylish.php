@@ -2,7 +2,7 @@
 
 namespace diff\formatters\stylish;
 
-use function diff\gendiff\getReadableValue;
+use function Differ\Differ\getReadableValue;
 use function Funct\Collection\flattenAll;
 
 const REPLACER = ' ';

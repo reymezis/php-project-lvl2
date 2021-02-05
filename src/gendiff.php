@@ -1,6 +1,6 @@
 <?php
 
-namespace diff\gendiff;
+namespace Differ\Differ;
 
 use function diff\astBuilder\buildAST;
 use function diff\Formatters\render;

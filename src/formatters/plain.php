@@ -2,7 +2,7 @@
 
 namespace diff\formatters\plain;
 
-use function diff\gendiff\getReadableValue;
+use function Differ\Differ\getReadableValue;
 
 function stringify($value)
 {
