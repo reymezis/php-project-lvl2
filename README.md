@@ -18,3 +18,35 @@ $ make install
 ```sh
 $ make test
 ```
+
+## Usage
+ 
+```sh
+$ gendiff -h
+```
+[![asciicast](https://asciinema.org/a/rbSiqt31KMitj8FcMBqd9kfw4.svg)](https://asciinema.org/a/rbSiqt31KMitj8FcMBqd9kfw4)
+
+plain files diff
+```sh
+$ gendiff file1.json file2.json
+```
+[![asciicast](https://asciinema.org/a/9tRKEILjup95YG1Wujf3JX6qa.svg)](https://asciinema.org/a/9tRKEILjup95YG1Wujf3JX6qa)
+
+nested files diff with stylish output format
+```sh
+$ gendiff file1.yml file2.yml
+```
+[![asciicast](https://asciinema.org/a/n0lU6riWscPKbcNsHxdpTbjxb.svg)](https://asciinema.org/a/n0lU6riWscPKbcNsHxdpTbjxb)
+
+nested files diff with plain output format
+```sh
+$ gendiff --format plain file1.yml file2.yml
+```
+
+[![asciicast](https://asciinema.org/a/XyLfEu8jrcrNtXUctnyi3fFXX.svg)](https://asciinema.org/a/XyLfEu8jrcrNtXUctnyi3fFXX)
+
+nested files diff with json output format
+```sh
+$ gendiff --format json file1.yml file2.yml
+```
+[![asciicast](https://asciinema.org/a/l6oIzsmU36aiGmIiaSpcTqwow.svg)](https://asciinema.org/a/l6oIzsmU36aiGmIiaSpcTqwow)
