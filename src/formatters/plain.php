@@ -7,7 +7,11 @@ use function diff\gendiff\getReadableValue;
 function stringify($value)
 {
     $iter = function ($currentValue) use (&$iter) {
-        if (getType($currentValue) === "NULL" || getType($currentValue) === "boolean") {
+        if (
+            getType($currentValue) === "NULL"
+            || getType($currentValue) === "boolean"
+            || getType($currentValue) === "integer"
+        ) {
             return getReadableValue($currentValue);
         }
         if (!is_object($currentValue)) {
