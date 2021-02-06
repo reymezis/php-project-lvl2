@@ -11,7 +11,7 @@ const CORRECTIVE_INDENT = 2;
 
 function stringify($value, $currentDepth): string
 {
-    $iter = function ($currentValue, $depth) use (&$iter): ?string {
+    $iter = function ($currentValue, $depth) use (&$iter): string {
         if (!is_object($currentValue)) {
             return getReadableValue($currentValue);
         }
