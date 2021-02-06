@@ -4,9 +4,9 @@ namespace diff\formatters\plain;
 
 use function Differ\Differ\getReadableValue;
 
-function stringify($value): string
+function stringify($value): ?string
 {
-    $iter = function ($currentValue) {
+    $iter = function ($currentValue): ?string {
         if (
             gettype($currentValue) === "NULL"
             || gettype($currentValue) === "boolean"
@@ -18,7 +18,7 @@ function stringify($value): string
             $value = getReadableValue($currentValue);
             return "'$value'";
         }
-        if (is_object($currentValue)) {
+        if (is_object($currentValue) || is_array($currentValue)) {
             return "[complex value]";
         }
     };
@@ -55,8 +55,7 @@ function formatter($ast): string
         $filteredData = array_filter($result, function ($item): bool {
             return $item !== null;
         });
-        $result = implode("\n", $filteredData);
-        return $result;
+        return implode("\n", $filteredData);
     };
     return $iter($ast, "");
 }

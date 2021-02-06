@@ -32,7 +32,7 @@ function run(): void
     echo genDiff($args->args['<firstFile>'], $args->args['<secondFile>'], $args['--format']);
 }
 
-function getReadableValue($value): ?string
+function getReadableValue($value): string
 {
     if (gettype($value) == 'NULL') {
             return "null";

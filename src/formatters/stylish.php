@@ -9,9 +9,9 @@ const REPLACER = ' ';
 const SPACES_COUNT = 4;
 const CORRECTIVE_INDENT = 2;
 
-function stringify($value, $currentDepth)
+function stringify($value, $currentDepth): string
 {
-    $iter = function ($currentValue, $depth) use (&$iter) {
+    $iter = function ($currentValue, $depth) use (&$iter): ?string {
         if (!is_object($currentValue)) {
             return getReadableValue($currentValue);
         }
@@ -20,7 +20,7 @@ function stringify($value, $currentDepth)
         $bracketIndent = str_repeat(REPLACER, $depth * SPACES_COUNT - SPACES_COUNT);
         $objectValues = get_object_vars($currentValue);
         $objectKeys = array_keys($objectValues);
-        $lines = array_map(function ($key, $val) use ($currentIndent, $iter, $depth) {
+        $lines = array_map(function ($key, $val) use ($currentIndent, $iter, $depth): string {
             return "{$currentIndent}{$key}: {$iter($val, $depth + 1)}";
         }, $objectKeys, $objectValues);
 
@@ -34,7 +34,7 @@ function stringify($value, $currentDepth)
 
 function formatter($ast): string
 {
-    $iter = function ($ast, $depth) use (&$iter) {
+    $iter = function ($ast, $depth) use (&$iter): string {
         $indentSize = ($depth * SPACES_COUNT) - CORRECTIVE_INDENT;
         $currentIndent = str_repeat(REPLACER, $indentSize);
         $bracketIndent = str_repeat(REPLACER, $depth * SPACES_COUNT - SPACES_COUNT);
