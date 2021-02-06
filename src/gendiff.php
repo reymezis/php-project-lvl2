@@ -4,7 +4,6 @@ namespace Differ\Differ;
 
 use function diff\astBuilder\buildAST;
 use function diff\Formatters\render;
-use function diff\parsers\getAbsoluteFilePath;
 use function diff\parsers\parseData;
 use function diff\parsers\readFile;
 
@@ -44,11 +43,8 @@ function getReadableValue($value): string
 
 function genDiff($pathToFile1, $pathToFile2, $format = "stylish"): string
 {
-    $absolutePath1 = getAbsoluteFilePath($pathToFile1);
-    $absolutePath2 = getAbsoluteFilePath($pathToFile2);
-
-    $data1 = readFile($absolutePath1);
-    $data2 = readFile($absolutePath2);
+    $data1 = readFile($pathToFile1);
+    $data2 = readFile($pathToFile2);
 
     [$file1Format, $rawData1] = $data1;
     [$file2Format, $rawData2] = $data2;

@@ -4,11 +4,6 @@ namespace diff\parsers;
 
 use Symfony\Component\Yaml\Yaml;
 
-function getAbsoluteFilePath(string $path): string
-{
-    return realpath($path);
-}
-
 function readFile(string $path): array
 {
     if (!file_exists($path)) {
