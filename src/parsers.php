@@ -4,7 +4,7 @@ namespace diff\parsers;
 
 use Symfony\Component\Yaml\Yaml;
 
-function readFile($path)
+function readFile(string $path): object
 {
     $absolutePath = realpath($path);
     $fileFormat = pathinfo($path, PATHINFO_EXTENSION);

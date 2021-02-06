@@ -8,7 +8,7 @@ use function diff\formatters\stylish\formatter as stylish;
 use function diff\formatters\plain\formatter as plain;
 use function diff\formatters\json\formatter as json;
 
-function render($ast, $format)
+function render($ast, $format): string
 {
     switch ($format) {
         case 'stylish':

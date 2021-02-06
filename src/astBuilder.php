@@ -2,11 +2,15 @@
 
 namespace diff\astBuilder;
 
-function buildAST($data1, $data2)
+use function Funct\Collection\sortBy;
+
+function buildAST($data1, $data2): array
 {
     $keys = array_keys(array_merge(get_object_vars($data1), get_object_vars($data2)));
-    sort($keys);
-    return array_map(function ($key) use ($data1, $data2) {
+    $sortedKeys = array_values(sortBy($keys, function ($key) {
+        return $key;
+    }));
+    $ast = array_map(function ($key) use ($data1, $data2) {
         if (property_exists($data1, $key) && property_exists($data2, $key)) {
             if (is_object($data1->$key) && is_object($data2->$key)) {
                 return [
@@ -14,7 +18,7 @@ function buildAST($data1, $data2)
                     "type" => 'nested',
                     "value" => null,
                     "children" => buildAST($data1->$key, $data2->$key),
-                    ];
+                ];
             } else {
                 if ($data1->$key === $data2->$key) {
                     return [
@@ -43,5 +47,6 @@ function buildAST($data1, $data2)
                 "value" => $data2->$key
             ];
         }
-    }, $keys);
+    }, $sortedKeys);
+    return $ast;
 }

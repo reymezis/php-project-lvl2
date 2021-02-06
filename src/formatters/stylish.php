@@ -32,13 +32,13 @@ function stringify($value, $currentDepth)
 }
 
 
-function formatter($ast)
+function formatter($ast): string
 {
     $iter = function ($ast, $depth) use (&$iter) {
         $indentSize = ($depth * SPACES_COUNT) - CORRECTIVE_INDENT;
         $currentIndent = str_repeat(REPLACER, $indentSize);
         $bracketIndent = str_repeat(REPLACER, $depth * SPACES_COUNT - SPACES_COUNT);
-        $result = array_map(function ($currentValue) use (&$iter, $currentIndent, $depth) {
+        $result = array_map(function ($currentValue) use (&$iter, $currentIndent, $depth): string {
             switch ($currentValue["type"]) {
                 case 'added':
                     return "{$currentIndent}+ {$currentValue['key']}: " . stringify($currentValue["value"], $depth + 1);

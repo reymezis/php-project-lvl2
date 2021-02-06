@@ -4,13 +4,13 @@ namespace diff\formatters\plain;
 
 use function Differ\Differ\getReadableValue;
 
-function stringify($value)
+function stringify($value): string
 {
-    $iter = function ($currentValue) use (&$iter) {
+    $iter = function ($currentValue) {
         if (
-            getType($currentValue) === "NULL"
-            || getType($currentValue) === "boolean"
-            || getType($currentValue) === "integer"
+            gettype($currentValue) === "NULL"
+            || gettype($currentValue) === "boolean"
+            || gettype($currentValue) === "integer"
         ) {
             return getReadableValue($currentValue);
         }
@@ -26,10 +26,10 @@ function stringify($value)
     return $iter($value);
 }
 
-function formatter($ast)
+function formatter($ast): string
 {
-    $iter = function ($ast, $accKeys) use (&$iter) {
-        $result = array_map(function ($currentValue) use (&$iter, $accKeys) {
+    $iter = function ($ast, $accKeys) use (&$iter): string {
+        $result = array_map(function ($currentValue) use (&$iter, $accKeys): ?string {
             $currentKey = strlen($accKeys) === 0 ? $currentValue['key'] : "{$accKeys}.{$currentValue['key']}";
             switch ($currentValue["type"]) {
                 case 'nested':
@@ -52,7 +52,7 @@ function formatter($ast)
             }
         }, $ast);
 
-        $filteredData = array_filter($result, function ($item) {
+        $filteredData = array_filter($result, function ($item): bool {
             return $item !== null;
         });
         $result = implode("\n", $filteredData);

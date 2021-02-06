@@ -20,7 +20,7 @@ Options:
   --format <fmt>                Report format [default: stylish]
 DOC;
 
-function run()
+function run(): void
 {
     $params = [
         'help'         => true,
@@ -32,7 +32,7 @@ function run()
     echo genDiff($args->args['<firstFile>'], $args->args['<secondFile>'], $args['--format']);
 }
 
-function getReadableValue($value)
+function getReadableValue($value): ?string
 {
     if (gettype($value) == 'NULL') {
             return "null";
@@ -40,7 +40,7 @@ function getReadableValue($value)
     return trim(var_export($value, true), "'");
 }
 
-function genDiff($pathToFile1, $pathToFile2, $format = "stylish")
+function genDiff($pathToFile1, $pathToFile2, $format = "stylish"): string
 {
     $data1 = readFile($pathToFile1);
     $data2 = readFile($pathToFile2);
