@@ -6,7 +6,7 @@ use function Differ\Differ\getReadableValue;
 
 function stringify($value): ?string
 {
-    $iter = function ($currentValue): ?string {
+    $iter = function ($currentValue): string {
         if (
             gettype($currentValue) === "NULL"
             || gettype($currentValue) === "boolean"
@@ -14,13 +14,12 @@ function stringify($value): ?string
         ) {
             return getReadableValue($currentValue);
         }
-        if (!is_object($currentValue)) {
-            $value = getReadableValue($currentValue);
-            return "'$value'";
-        }
         if (is_object($currentValue) || is_array($currentValue)) {
             return "[complex value]";
         }
+
+        $value = getReadableValue($currentValue);
+        return "'$value'";
     };
 
     return $iter($value);
