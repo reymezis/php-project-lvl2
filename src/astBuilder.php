@@ -19,20 +19,12 @@ function buildAST(object $data1, object $data2): array
                     "value" => null,
                     "children" => buildAST($data1->$key, $data2->$key),
                 ];
-            } else {
-                if ($data1->$key === $data2->$key) {
-                    return [
-                        "key" => $key,
-                        "type" => 'unchanged',
-                        "value" => $data1->$key
-                    ];
-                } elseif ($data1->$key !== $data2->$key) {
+            } elseif ($data1->$key !== $data2->$key) {
                     return [
                         "key" => $key,
                         "type" => 'changed',
                         "value" => [$data1->$key, $data2->$key],
                     ];
-                }
             }
         } elseif (!property_exists($data2, $key)) {
             return [
@@ -47,6 +39,11 @@ function buildAST(object $data1, object $data2): array
                 "value" => $data2->$key
             ];
         }
+        return [
+            "key" => $key,
+            "type" => 'unchanged',
+            "value" => $data1->$key
+        ];
     }, $sortedKeys);
     return $ast;
 }

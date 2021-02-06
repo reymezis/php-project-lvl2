@@ -4,7 +4,7 @@ namespace diff\formatters\plain;
 
 use function Differ\Differ\getReadableValue;
 
-function stringify($value): ?string
+function stringify($value): string
 {
     $iter = function ($currentValue): string {
         if (
