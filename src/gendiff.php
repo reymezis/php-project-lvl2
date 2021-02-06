@@ -43,8 +43,11 @@ function getReadableValue($value): string
 
 function genDiff($pathToFile1, $pathToFile2, $format = "stylish"): string
 {
-    $data1 = readFile($pathToFile1);
-    $data2 = readFile($pathToFile2);
+    $absolutePath1 = realpath($pathToFile1);
+    $absolutePath2 = realpath($pathToFile2);
+
+    $data1 = readFile($absolutePath1);
+    $data2 = readFile($absolutePath2);
 
     [$file1Format, $rawData1] = $data1;
     [$file2Format, $rawData2] = $data2;

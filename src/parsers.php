@@ -9,9 +9,8 @@ function readFile(string $path): array
     if (!file_exists($path)) {
         throw new \Exception("File '{$path}' unreadable or doesn't exist");
     }
-    $absolutePath = realpath($path);
     $fileFormat = pathinfo($path, PATHINFO_EXTENSION);
-    $data = file_get_contents($absolutePath);
+    $data = file_get_contents($path);
     return [$fileFormat, $data];
 }
 
