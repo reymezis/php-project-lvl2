@@ -16,6 +16,7 @@ function stringify($value): string
     if (is_string($value)) {
         return "'$value'";
     }
+    return "{$value}";
 }
 
 function formatter($ast): string
