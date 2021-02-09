@@ -1,10 +1,10 @@
 <?php
 
-namespace diff\astBuilder;
+namespace Differ\DiffBuilder;
 
 use function Funct\Collection\sortBy;
 
-function buildAST(object $data1, object $data2): array
+function buildDiff(object $data1, object $data2): array
 {
     $keys = array_keys(array_merge(get_object_vars($data1), get_object_vars($data2)));
     $sortedKeys = array_values(sortBy($keys, function ($key) {
@@ -17,7 +17,7 @@ function buildAST(object $data1, object $data2): array
                     "key" => $key,
                     "type" => 'nested',
                     "value" => null,
-                    "children" => buildAST($data1->$key, $data2->$key),
+                    "children" => buildDiff($data1->$key, $data2->$key),
                 ];
             } elseif ($data1->$key !== $data2->$key) {
                     return [

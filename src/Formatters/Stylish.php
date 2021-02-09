@@ -1,6 +1,6 @@
 <?php
 
-namespace diff\formatters\stylish;
+namespace Differ\Formatters\Stylish;
 
 use function Differ\Differ\getReadableValue;
 use function Funct\Collection\flattenAll;

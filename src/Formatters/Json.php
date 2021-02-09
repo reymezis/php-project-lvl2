@@ -1,6 +1,6 @@
 <?php
 
-namespace diff\formatters\json;
+namespace Differ\Formatters\Json;
 
 function formatter(array $ast): string
 {

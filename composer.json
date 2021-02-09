@@ -14,13 +14,13 @@
     ],
     "autoload": {
         "files": [
-            "src/gendiff.php",
-            "src/parsers.php",
-            "src/astBuilder.php",
+            "src/Gendiff.php",
+            "src/Parsers.php",
+            "src/DiffBuilder.php",
             "src/Formatters.php",
-            "src/formatters/stylish.php",
-            "src/formatters/plain.php",
-            "src/formatters/json.php"
+            "src/Formatters/Stylish.php",
+            "src/Formatters/Plain.php",
+            "src/Formatters/Json.php"
         ]
     },
     "require": {

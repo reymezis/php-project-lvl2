@@ -1,6 +1,6 @@
 <?php
 
-namespace diff\formatters\plain;
+namespace Differ\Formatters\Plain;
 
 use function Differ\Differ\getReadableValue;
 

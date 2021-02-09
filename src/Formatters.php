@@ -1,12 +1,12 @@
 <?php
 
-namespace diff\Formatters;
+namespace Differ\Formatters;
 
 use Exception;
 
-use function diff\formatters\stylish\formatter as stylish;
-use function diff\formatters\plain\formatter as plain;
-use function diff\formatters\json\formatter as json;
+use function Differ\Formatters\Stylish\formatter as stylish;
+use function Differ\Formatters\Plain\formatter as plain;
+use function Differ\Formatters\Json\formatter as json;
 
 function render($ast, $format): string
 {
