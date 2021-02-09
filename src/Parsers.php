@@ -4,16 +4,6 @@ namespace Differ\Parsers;
 
 use Symfony\Component\Yaml\Yaml;
 
-function readFile(string $path): array
-{
-    if (!file_exists($path)) {
-        throw new \Exception("File '{$path}' unreadable or doesn't exist");
-    }
-    $fileFormat = pathinfo($path, PATHINFO_EXTENSION);
-    $data = file_get_contents($path);
-    return [$fileFormat, $data];
-}
-
 function parseData($fileFormat, $data): object
 {
     switch ($fileFormat) {

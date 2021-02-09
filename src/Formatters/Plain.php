@@ -2,27 +2,20 @@
 
 namespace Differ\Formatters\Plain;
 
-use function Differ\Differ\getReadableValue;
-
 function stringify($value): string
 {
-    $iter = function ($currentValue): string {
-        if (
-            gettype($currentValue) === "NULL"
-            || gettype($currentValue) === "boolean"
-            || gettype($currentValue) === "integer"
-        ) {
-            return getReadableValue($currentValue);
-        }
-        if (is_object($currentValue) || is_array($currentValue)) {
-            return "[complex value]";
-        }
-
-        $value = getReadableValue($currentValue);
+    if (is_null($value)) {
+        return "null";
+    }
+    if (is_bool($value)) {
+        return $value ? "true" : "false";
+    }
+    if (is_object($value) || is_array($value)) {
+        return "[complex value]";
+    }
+    if (is_string($value)) {
         return "'$value'";
-    };
-
-    return $iter($value);
+    }
 }
 
 function formatter($ast): string
@@ -43,9 +36,9 @@ function formatter($ast): string
                     return null;
                 case 'changed':
                     return "Property '{$currentKey}' was updated. From "
-                        . stringify($currentValue["value"][0])
+                        . stringify($currentValue["value1"])
                         . " to "
-                        . stringify($currentValue["value"][1]);
+                        . stringify($currentValue["value2"]);
                 default:
                     throw new \Exception("Unknown state {$currentValue["type"]}!");
             }

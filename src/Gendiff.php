@@ -5,15 +5,6 @@ namespace Differ\Differ;
 use function Differ\DiffBuilder\buildDiff;
 use function Differ\Formatters\render;
 use function Differ\Parsers\parseData;
-use function Differ\Parsers\readFile;
-
-function getReadableValue($value): string
-{
-    if (gettype($value) == 'NULL') {
-            return "null";
-    }
-    return trim(var_export($value, true), "'");
-}
 
 function genDiff($pathToFile1, $pathToFile2, $format = "stylish"): string
 {
@@ -27,4 +18,14 @@ function genDiff($pathToFile1, $pathToFile2, $format = "stylish"): string
     $parsedData2 = parseData($file2Format, $rawData2);
     $ast = buildDiff($parsedData1, $parsedData2);
     return render($ast, $format);
+}
+
+function readFile(string $path): array
+{
+    if (!file_exists($path)) {
+        throw new \Exception("File '{$path}' unreadable or doesn't exist");
+    }
+    $fileFormat = pathinfo($path, PATHINFO_EXTENSION);
+    $data = file_get_contents($path);
+    return [$fileFormat, $data];
 }

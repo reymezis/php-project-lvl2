@@ -2,7 +2,7 @@
 
 namespace Differ\Formatters\Stylish;
 
-use function Differ\Differ\getReadableValue;
+use function Differ\Formatters\getReadableValue;
 use function Funct\Collection\flattenAll;
 
 const REPLACER = ' ';
@@ -48,9 +48,9 @@ function formatter($ast): string
                     return "{$currentIndent}  {$currentValue['key']}: " . stringify($currentValue["value"], $depth + 1);
                 case 'changed':
                     return "{$currentIndent}- {$currentValue['key']}: "
-                        . stringify($currentValue["value"][0], $depth + 1)
+                        . stringify($currentValue["value1"], $depth + 1)
                         . "\n" . "{$currentIndent}+ {$currentValue['key']}: "
-                        . stringify($currentValue["value"][1], $depth + 1);
+                        . stringify($currentValue["value2"], $depth + 1);
                 case 'nested':
                     return "{$currentIndent}  {$currentValue['key']}: " . $iter($currentValue['children'], $depth + 1);
                 default:

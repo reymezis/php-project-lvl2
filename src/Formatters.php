@@ -21,3 +21,11 @@ function render($ast, $format): string
             throw new Exception("Unknown output format {$format}!");
     }
 }
+
+function getReadableValue($value): string
+{
+    if (is_null($value)) {
+        return "null";
+    }
+    return trim(var_export($value, true), "'");
+}
