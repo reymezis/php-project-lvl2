@@ -21,7 +21,7 @@ function stringify($value, $currentDepth): string
             return $currentValue;
         }
         if (is_int($currentValue)) {
-            return $currentValue;
+            return "{$currentValue}";
         }
         $indentSize = $depth * SPACES_COUNT;
         $currentIndent = str_repeat(REPLACER, $indentSize);
