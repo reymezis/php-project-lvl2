@@ -9,50 +9,57 @@ use function Differ\Differ\genDiff;
 class GendiffTest extends TestCase
 {
     /**
-     * @dataProvider  additionProvider
+     * @dataProvider  genDiffDataProvider
      */
     public function testGendiff($expected, $argument1, $argument2, $argument3 = "stylish")
     {
         $this->assertEquals($expected, genDiff($argument1, $argument2, $argument3));
     }
-    public function additionProvider()
+    public function genDiffDataProvider()
     {
-        $jsonFile1 = $this->getFixturePath("file1.json");
-        $jsonFile2 = $this->getFixturePath("file2.json");
+        $pathToJsonFile1 = $this->getFixturePath("file1.json");
+        $pathToJsonFile2 = $this->getFixturePath("file2.json");
 
-        $yamlFile1 = $this->getFixturePath("file1.yaml");
-        $yamlFile2 = $this->getFixturePath("file2.yaml");
+        $pathToYamlFile1 = $this->getFixturePath("file1.yaml");
+        $pathToYamlFile2 = $this->getFixturePath("file2.yaml");
 
-        $plainFormatter = "plain";
-        $jsonFormatter = "json";
+        $plainFormatterName = "plain";
+        $jsonFormatterName = "json";
+        $stylishFormatterName = "stylish";
 
-        $nestResult = file_get_contents(__DIR__ . "/fixtures/nested_result");
-        $plainResult = file_get_contents(__DIR__ . "/fixtures/plain_result");
-        $jsonResult = file_get_contents(__DIR__ . "/fixtures/json_result");
+        $nestResult = file_get_contents($this->getFixturePath("nested_result"));
+        $plainResult = file_get_contents($this->getFixturePath("plain_result"));
+        $jsonResult = file_get_contents($this->getFixturePath("json_result"));
 
 
         return [
             [
                 $nestResult,
-                $jsonFile1,
-                $jsonFile2
+                $pathToJsonFile1,
+                $pathToJsonFile2
             ],
             [
                 $nestResult,
-                $yamlFile1,
-                $yamlFile2,
+                $pathToYamlFile1,
+                $pathToYamlFile2,
             ],
             [
                 $plainResult,
-                $yamlFile1,
-                $yamlFile2,
-                $plainFormatter
+                $pathToYamlFile1,
+                $pathToYamlFile2,
+                $plainFormatterName
             ],
             [
                 $jsonResult,
-                $yamlFile1,
-                $yamlFile2,
-                $jsonFormatter
+                $pathToYamlFile1,
+                $pathToYamlFile2,
+                $jsonFormatterName
+            ],
+            [
+                $nestResult,
+                $pathToYamlFile1,
+                $pathToYamlFile2,
+                $stylishFormatterName
             ]
         ];
     }
