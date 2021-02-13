@@ -16,8 +16,8 @@ function genDiff($pathToFile1, $pathToFile2, $format = "stylish"): string
 
     $parsedData1 = parseData($file1Format, $rawData1);
     $parsedData2 = parseData($file2Format, $rawData2);
-    $ast = buildDiff($parsedData1, $parsedData2);
-    return render($ast, $format);
+    $diff = buildDiff($parsedData1, $parsedData2);
+    return render($diff, $format);
 }
 
 function readFile(string $path): array

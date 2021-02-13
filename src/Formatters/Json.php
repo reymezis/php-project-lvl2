@@ -2,7 +2,7 @@
 
 namespace Differ\Formatters\Json;
 
-function formatter(array $ast): string
+function format(array $diff): string
 {
-    return json_encode($ast, JSON_THROW_ON_ERROR);
+    return json_encode($diff, JSON_THROW_ON_ERROR);
 }

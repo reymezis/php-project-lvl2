@@ -11,7 +11,7 @@ function buildDiff(object $data1, object $data2): array
     $sortedKeys = array_values(sortBy($keys, function ($key) {
         return $key;
     }));
-    $ast = array_map(function ($key) use ($data1, $data2): array {
+    $diff = array_map(function ($key) use ($data1, $data2): array {
         if (!property_exists($data2, $key)) {
             return [
                 "key" => $key,
@@ -30,7 +30,6 @@ function buildDiff(object $data1, object $data2): array
             return [
                 "key" => $key,
                 "type" => 'nested',
-                "value" => null,
                 "children" => buildDiff($data1->$key, $data2->$key),
             ];
         }
@@ -48,5 +47,5 @@ function buildDiff(object $data1, object $data2): array
             "value" => $data1->$key
         ];
     }, $sortedKeys);
-    return $ast;
+    return $diff;
 }

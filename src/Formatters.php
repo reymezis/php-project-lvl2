@@ -4,28 +4,20 @@ namespace Differ\Formatters;
 
 use Exception;
 
-use function Differ\Formatters\Stylish\formatter as stylish;
-use function Differ\Formatters\Plain\formatter as plain;
-use function Differ\Formatters\Json\formatter as json;
+use function Differ\Formatters\Stylish\format as formatToStylish;
+use function Differ\Formatters\Plain\format as formatToPlain;
+use function Differ\Formatters\Json\format as formatToJson;
 
-function render($ast, $format): string
+function render($diff, $format): string
 {
     switch ($format) {
         case 'stylish':
-            return stylish($ast);
+            return formatToStylish($diff);
         case 'plain':
-            return plain($ast);
+            return formatToPlain($diff);
         case 'json':
-            return json($ast);
+            return formatToJson($diff);
         default:
             throw new Exception("Unknown output format {$format}!");
     }
-}
-
-function getReadableValue($value): string
-{
-    if (is_null($value)) {
-        return "null";
-    }
-    return trim(var_export($value, true), "'");
 }

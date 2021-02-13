@@ -19,36 +19,36 @@ function stringify($value): string
     return "{$value}";
 }
 
-function formatter($ast): string
+function format($diff): string
 {
-    $iter = function ($ast, $accKeys) use (&$iter): string {
-        $result = array_map(function ($currentValue) use (&$iter, $accKeys): ?string {
-            $currentKey = strlen($accKeys) === 0 ? $currentValue['key'] : "{$accKeys}.{$currentValue['key']}";
-            switch ($currentValue["type"]) {
+    $iter = function ($diff, $ancestry) use (&$iter): string {
+        $result = array_map(function ($node) use (&$iter, $ancestry): ?string {
+            $fullPathToNode = strlen($ancestry) === 0 ? $node['key'] : "{$ancestry}.{$node['key']}";
+            switch ($node["type"]) {
                 case 'nested':
-                    return $iter($currentValue['children'], $currentKey);
+                    return $iter($node['children'], $fullPathToNode);
                 case 'added':
-                    return "Property '{$currentKey}'"
+                    return "Property '{$fullPathToNode}'"
                         . " was added with value: "
-                        . stringify($currentValue["value"]);
+                        . stringify($node["value"]);
                 case 'removed':
-                    return "Property '{$currentKey}' was removed";
+                    return "Property '{$fullPathToNode}' was removed";
                 case 'unchanged':
                     return null;
                 case 'changed':
-                    return "Property '{$currentKey}' was updated. From "
-                        . stringify($currentValue["value1"])
+                    return "Property '{$fullPathToNode}' was updated. From "
+                        . stringify($node["value1"])
                         . " to "
-                        . stringify($currentValue["value2"]);
+                        . stringify($node["value2"]);
                 default:
-                    throw new \Exception("Unknown state {$currentValue["type"]}!");
+                    throw new \Exception("Unknown state {$node["type"]}!");
             }
-        }, $ast);
+        }, $diff);
 
         $filteredData = array_filter($result, function ($item): bool {
             return $item !== null;
         });
         return implode("\n", $filteredData);
     };
-    return $iter($ast, "");
+    return $iter($diff, "");
 }
